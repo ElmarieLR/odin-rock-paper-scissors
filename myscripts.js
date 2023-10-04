@@ -4,8 +4,8 @@ let score = 0;
 
 const choiceArray = ["Rock", "Paper", "Scissors"];
 
-//This is a 5 round game that keeps score and reports a winner or loser at the end.
-//The computer's selection and the results of each round are also displayed.
+//This is a 5 round game that keeps score and reports a winner at the end.
+//The computer's selection and the results of each round are displayed.
 
 function game() {
 
@@ -13,7 +13,8 @@ function game() {
 
     //Prompt player choice with case-insensitive parameter
 
-    let playerInput = prompt("What is your choice: Rock, Paper or Scissors", "rock");
+    let playerInput = 
+      prompt("What is your choice: Rock, Paper or Scissors", "rock");
 
     function caseInsensitive(userInput) {
       userInput = userInput.toLowerCase();
@@ -32,18 +33,27 @@ function game() {
     
     console.log(`The computer chose ${computerSelection}`);
 
-    //Play single round of RPS and return a string that declares the winner of the round 
+    //Play single round of RPS and declares the winner of the round
 
     function playRound(playerSelection, computerSelection) {
-      let roundOutcome = ""
+      let roundOutcome = "";
       if (playerSelection === computerSelection) {
         rounds--;
-        return roundOutcome = `You both chose ${playerSelection}. It's a tie.`;
-      } else if ((playerSelection === "Rock" && computerSelection === "Scissors") || (playerSelection === "Paper" && computerSelection === "Rock") || (playerSelection === "Scissors" && computerSelection === "Paper")) {
+        return roundOutcome = 
+          `You both chose ${playerSelection}. It's a tie.`;
+      } else if (
+        (playerSelection === "Rock" && computerSelection === "Scissors") || 
+        (playerSelection === "Paper" && computerSelection === "Rock") || 
+        (playerSelection === "Scissors" && computerSelection === "Paper")
+        ) {
         score++;
-        return roundOutcome = `${playerSelection} beats ${computerSelection}. You win this round! Score: ${score}/${rounds}`;
+        return roundOutcome = 
+          `${playerSelection} beats ${computerSelection}. 
+          You win this round! Score: ${score}/${rounds}`;
       } else {
-        return roundOutcome = `${computerSelection} beats ${playerSelection}. You lose this round! Score: ${score}/${rounds}`;
+        return roundOutcome = 
+          `${computerSelection} beats ${playerSelection}. 
+          You lose this round! Score: ${score}/${rounds}`;
       }
     }
 
@@ -53,17 +63,14 @@ function game() {
   //Who won the game
   let gameOutcome = "";
   if (score >= 3) {
-    return gameOutcome = `You won ${score} out of 5 rounds. You win the game!`
+    return gameOutcome = 
+      `You won ${score} out of 5 rounds. You win the game!`;
   } else {
-    return gameOutcome = `You won ${score} out of 5 rounds. The computer wins the game!`
+    return gameOutcome = 
+      `You won ${score} out of 5 rounds. The computer wins the game!`;
   }
   
   console.log(gameOutcome);
 }
 
 console.log(game());
-
-
-
-
-
