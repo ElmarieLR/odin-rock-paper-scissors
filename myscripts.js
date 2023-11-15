@@ -1,44 +1,49 @@
-//played from console - keep simple. Design will be added later.
-
-let score = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 const choiceArray = ["Rock", "Paper", "Scissors"];
 
-//This is a 5 round game that keeps score and reports a winner at the end.
+//This game keeps score until a player reaches 5 points and then reports the winner.
 //The computer's selection and the results of each round are displayed.
 
 function game() {
 
-  for (let rounds = 1; rounds <= 5; rounds++) {
+  while (playerScore < 5 && computerScore< 5) {
 
-    //Prompt player choice with case-insensitive parameter
-
-    let playerInput = 
-      prompt("What is your choice: Rock, Paper or Scissors", "rock");
-
-    function caseInsensitive(userInput) {
-      userInput = userInput.toLowerCase();
-      return(userInput[0].toUpperCase() + userInput.slice(1));
-    }
-
-    const playerSelection = caseInsensitive(playerInput);
-
-    //Computer choice - randomly return 'Rock’, ‘Paper’ or ‘Scissors’
-
-    function getComputerChoice() {
-      return choiceArray[(Math.floor(Math.random() * choiceArray.length))];
-    }
     
-    const computerSelection = getComputerChoice();
+    let playerSelection = "";
+    let computerSelection = "";
+
+    //Player chooses with button
     
-    console.log(`The computer chose ${computerSelection}`);
+    let rockButton = document.querySelector("#rock");
+    rockButton.addEventListener('click', playRound);
+
+    let paperButton = document.querySelector("#paper");
+    paperButton.addEventListener('click', playRound);
+
+    let scissorsButton = document.querySelector("#scissors");
+    scissorsButton.addEventListener('click', playRound);
 
     //Play single round of RPS and declares the winner of the round
 
     function playRound(playerSelection, computerSelection) {
+      //Player choice
+      let playerSelection = document.getElementsByClassName("choice").getAttribute("value");
+
+      //Computer choice - randomly return 'Rock’, ‘Paper’ or ‘Scissors’
+      computerSelection =  () => choiceArray[(Math.floor(Math.random() * choiceArray.length))];
+
+      //Display player and computer choices
+      const playerDecision = document.querySelector("#player_selection");
+      playerDecision.textContent = `Player chose ${playerSelection}.`;
+
+      const computerDecision = document.querySelector("#computer_selection");
+      computerDecision.textContent = `Computer chose ${computerSelection()}.`;
+
+      // Play round
       let roundOutcome = "";
       if (playerSelection === computerSelection) {
-        rounds--;
         return roundOutcome = 
           `You both chose ${playerSelection}. It's a tie.`;
       } else if (
@@ -46,14 +51,15 @@ function game() {
         (playerSelection === "Paper" && computerSelection === "Rock") || 
         (playerSelection === "Scissors" && computerSelection === "Paper")
         ) {
-        score++;
+          humanScore++;
         return roundOutcome = 
           `${playerSelection} beats ${computerSelection}. 
-          You win this round! Score: ${score}/${rounds}`;
+          You win this round!`;
       } else {
+        computerScore++;
         return roundOutcome = 
           `${computerSelection} beats ${playerSelection}. 
-          You lose this round! Score: ${score}/${rounds}`;
+          You lose this round!`;
       }
     }
 
@@ -62,12 +68,12 @@ function game() {
   
   //Who won the game
   let gameOutcome = "";
-  if (score >= 3) {
+  if (humanScore === 5) {
     return gameOutcome = 
-      `You won ${score} out of 5 rounds. You win the game!`;
+      `You win the game!`;
   } else {
     return gameOutcome = 
-      `You won ${score} out of 5 rounds. The computer wins the game!`;
+      `The computer wins the game!`;
   }
   
   console.log(gameOutcome);

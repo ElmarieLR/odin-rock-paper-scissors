@@ -2,9 +2,28 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rock Paper Scissors</title>
+  <script type="text/javascript" defer src="myscripts.js"></script>
 </head>
 <body>
-  <script src="myscripts.js"></script>
+  <h1>Rock, Paper, Scissors</h1>
+  <h2>Rules of the game:</h2>
+    <ul>
+      <li>Paper beats Rock.</li>
+      <li>Rock beats Scissors.</li>
+      <li>Scissors beat Paper.</li>
+      <li>The first player to have 5 points win the game.</li>
+    </ul>
+  <h2>Choose your weapon!</h2>
+    <button class="choice" id="rock" value="Rock">Rock</button>
+    <button class="choice" id="paper" value="Paper">Paper</button>
+    <button class="choice" id="scissors" value="Scissors">Scissors</button>
+  <h2>Decisions were made:</h2>
+  <p id="player_selection"></p>
+  <p id="computer_selection"></p>
+  <h2>Results:</h2>
+    <div id="result"></div>
+  
 </body>
 </html>
