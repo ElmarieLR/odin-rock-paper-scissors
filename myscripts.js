@@ -21,7 +21,7 @@ function game() {
   console.log("started");
 
 
-  // Player chooses with button, event listeners takes player choice a
+    // Player chooses with button, event listeners takes player choice a
     
     let rockButton = document.querySelector("#rock");
     rockButton.addEventListener("click", choices);
@@ -32,24 +32,53 @@ function game() {
     let scissorsButton = document.querySelector("#scissors");
     scissorsButton.addEventListener("click", choices);
   
-  // Define choices and start a round
+    // Define choices and start a round
+
     function choices(event) {
       const playerSelection = event.target.value;
       const computerSelection = getComputerChoice();
-      console.log(playerSelection);
-      console.log(computerSelection);
+
+      // Display player and computer choices
+
+      const playerDecision = document.querySelector("#player_selection");
+      playerDecision.textContent = `Player chose ${playerSelection}.`;
+
+      const computerDecision = document.querySelector("#computer_selection");
+      computerDecision.textContent = `Computer chose ${computerSelection}.`;
+
       playRound(playerSelection, computerSelection);
     }
 
+    //Play single round of RPS and declares the winner of the round
+
     function playRound(playerSelection, computerSelection) {
       console.log("play");
-      
-      // Display player and computer choices
-      const playerDecision = document.querySelector("#player_selection");
-      playerDecision.textContent = `Player chose ${playerSelection}.`;
-      
-      const computerDecision = document.querySelector("#computer_selection");
-      computerDecision.textContent = `Computer chose ${computerSelection}.`;
+
+      let roundOutcome = "";
+      if (playerSelection === computerSelection) {
+        roundOutcome = 
+          `You both chose ${playerSelection}. It's a tie.`;
+        console.log("tied");
+      } else if (
+        (playerSelection === "Rock" && computerSelection === "Scissors") || 
+        (playerSelection === "Paper" && computerSelection === "Rock") || 
+        (playerSelection === "Scissors" && computerSelection === "Paper")
+        ) {
+        playerScore++;
+        roundOutcome = 
+          `${playerSelection} beats ${computerSelection}. 
+          You win this round!`;
+        console.log("win");
+      } else {
+        computerScore++;
+        roundOutcome = 
+          `${computerSelection} beats ${playerSelection}. 
+          You lose this round!`;
+        console.log("lose");
+      } 
+
+      const roundResult = document.querySelector("#round-result");
+      roundResult.textcontent = `${roundOutcome}`;
     }
   
 }
