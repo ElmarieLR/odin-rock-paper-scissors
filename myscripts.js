@@ -1,5 +1,6 @@
 let playerScore = 0;
 let computerScore = 0;
+let roundOutcome = "";
 
 //Computer choice - randomly return 'Rock’, ‘Paper’ or ‘Scissors’
 
@@ -54,11 +55,11 @@ function game() {
     function playRound(playerSelection, computerSelection) {
       console.log("play");
 
-      let roundOutcome = "";
       if (playerSelection === computerSelection) {
         roundOutcome = 
           `You both chose ${playerSelection}. It's a tie.`;
         console.log("tied");
+        roundResult();
       } else if (
         (playerSelection === "Rock" && computerSelection === "Scissors") || 
         (playerSelection === "Paper" && computerSelection === "Rock") || 
@@ -69,16 +70,20 @@ function game() {
           `${playerSelection} beats ${computerSelection}. 
           You win this round!`;
         console.log("win");
+        roundResult();
       } else {
         computerScore++;
         roundOutcome = 
           `${computerSelection} beats ${playerSelection}. 
           You lose this round!`;
         console.log("lose");
+        roundResult();
       } 
+    }
 
-      const roundResult = document.querySelector("#round-result");
-      roundResult.textcontent = `${roundOutcome}`;
+    function roundResult() {
+      const roundResultMessage = document.querySelector("#round-result");
+      roundResultMessage.textContent = roundOutcome;
     }
   
 }
