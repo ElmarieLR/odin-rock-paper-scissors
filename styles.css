@@ -23,3 +23,9 @@ button:hover {
   background-color: black;
   color: white;
 }
+
+@media (max-width: 480px) {
+  button {
+    display: block;
+  }
+}
