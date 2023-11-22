@@ -21,14 +21,11 @@ function gameStart() {
   document.querySelector("#start").style.display = "none";
   document.querySelector("#play").style.display = "block";
   document.querySelector("#results").style.display = "block";
-  console.log("started");
-
+ 
   // Player chooses with button, event listeners takes player choice 
     
   document.querySelector("#rock").addEventListener("click", choices);
-
   document.querySelector("#paper").addEventListener("click", choices);
-
   document.querySelector("#scissors").addEventListener("click", choices);
 }
 
@@ -37,6 +34,7 @@ function gameStart() {
 function choices(event) {
   const playerSelection = event.target.value;
   const computerSelection = getComputerChoice();
+
   // Display player and computer choices
 
   const playerDecision = document.querySelector("#player_selection");
@@ -51,13 +49,8 @@ function choices(event) {
 // Winner of round 
 
 function playRound(playerSelection, computerSelection) {
-  console.log("play");
-
   if (playerSelection === computerSelection) {
-    roundOutcome = `You both chose ${playerSelection}. It's a tie.
-    Player: ${playerScore}
-    Computer: ${computerScore}`;
-    console.log("tied");
+    roundOutcome = `You both chose ${playerSelection}. It's a tie.`;
     roundResult();
   } else if (
     (playerSelection === "Rock" && computerSelection === "Scissors") || 
@@ -65,28 +58,23 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === "Scissors" && computerSelection === "Paper")
     ) {
     playerScore++;
-    roundOutcome = 
-      `${playerSelection} beats ${computerSelection}. 
-      You win this round!
-      Player: ${playerScore}
-      Computer: ${computerScore}`;
-    console.log("win");
+    roundOutcome = `${playerSelection} beats ${computerSelection}. You win this round!`;
     roundResult();
   } else {
     computerScore++;
-    roundOutcome = 
-      `${computerSelection} beats ${playerSelection}. 
-      You lose this round!
-      Player: ${playerScore}
-      Computer: ${computerScore}`;
-    console.log("lose");
+    roundOutcome = `${computerSelection} beats ${playerSelection}. You lose this round!`;
     roundResult();
   } 
 }
 
+// Shows result and scores
+
 function roundResult() {
   const roundResultMessage = document.querySelector("#round-result");
   roundResultMessage.textContent = roundOutcome;
+  const score = document.querySelector("#score");
+  score.textContent = `Player: ${playerScore}
+  Computer: ${computerScore}`;
   if (playerScore < 5 && computerScore < 5) {
     gameStart();
   } else {
@@ -95,12 +83,14 @@ function roundResult() {
   }
 }
 
+// Shows result/winner at the end of the game
+
 function endResult() {
   if (playerScore === 5) {
-    const roundResultMessage = document.querySelector("#score");
+    const roundResultMessage = document.querySelector("#winner");
     roundResultMessage.textContent = "CONGRATULATIONS! YOU WON!"
   } else if (computerScore === 5) {
-    const roundResultMessage = document.querySelector("#score");
+    const roundResultMessage = document.querySelector("#winner");
     roundResultMessage.textContent = "Sorry! You lost!"
   }
   document.querySelector("#start_over").style.display = "block";
