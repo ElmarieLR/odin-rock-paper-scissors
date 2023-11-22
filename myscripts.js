@@ -1,3 +1,6 @@
+//This game keeps score until a player reaches 5 points and then reports the winner.
+//The computer's selection and the results of each round are displayed. 
+
 let playerScore = 0;
 let computerScore = 0;
 let roundOutcome = "";
@@ -12,12 +15,9 @@ function getComputerChoice() {
 
 // Start
 
-document.querySelector("#startBtn").addEventListener("click", game);
+document.querySelector("#startBtn").addEventListener("click", gameStart);
 
-//This game keeps score until a player reaches 5 points and then reports the winner.
-//The computer's selection and the results of each round are displayed. 
-
-function game() {
+function gameStart() {
   document.querySelector("#start").style.display = "none";
   document.querySelector("#play").style.display = "block";
   document.querySelector("#results").style.display = "block";
@@ -30,65 +30,65 @@ function game() {
   document.querySelector("#paper").addEventListener("click", choices);
 
   document.querySelector("#scissors").addEventListener("click", choices);
-  
-  // Define choices and start a round
+}
 
-  function choices(event) {
-    const playerSelection = event.target.value;
-    const computerSelection = getComputerChoice();
-    // Display player and computer choices
+// Define choices and start a round
 
-    const playerDecision = document.querySelector("#player_selection");
-    playerDecision.textContent = `Player chose ${playerSelection}.`;
+function choices(event) {
+  const playerSelection = event.target.value;
+  const computerSelection = getComputerChoice();
+  // Display player and computer choices
 
-    const computerDecision = document.querySelector("#computer_selection");
-    computerDecision.textContent = `Computer chose ${computerSelection}.`;
+  const playerDecision = document.querySelector("#player_selection");
+  playerDecision.textContent = `Player chose ${playerSelection}.`;
 
-    playRound(playerSelection, computerSelection);
-  }
+  const computerDecision = document.querySelector("#computer_selection");
+  computerDecision.textContent = `Computer chose ${computerSelection}.`;
 
-  // Winner of round 
+  playRound(playerSelection, computerSelection);
+}
 
-  function playRound(playerSelection, computerSelection) {
-    console.log("play");
+// Winner of round 
 
-    if (playerSelection === computerSelection) {
-      roundOutcome = `You both chose ${playerSelection}. It's a tie.
+function playRound(playerSelection, computerSelection) {
+  console.log("play");
+
+  if (playerSelection === computerSelection) {
+    roundOutcome = `You both chose ${playerSelection}. It's a tie.
+    Player: ${playerScore}
+    Computer: ${computerScore}`;
+    console.log("tied");
+    roundResult();
+  } else if (
+    (playerSelection === "Rock" && computerSelection === "Scissors") || 
+    (playerSelection === "Paper" && computerSelection === "Rock") || 
+    (playerSelection === "Scissors" && computerSelection === "Paper")
+    ) {
+    playerScore++;
+    roundOutcome = 
+      `${playerSelection} beats ${computerSelection}. 
+      You win this round!
       Player: ${playerScore}
       Computer: ${computerScore}`;
-      console.log("tied");
-      roundResult();
-    } else if (
-      (playerSelection === "Rock" && computerSelection === "Scissors") || 
-      (playerSelection === "Paper" && computerSelection === "Rock") || 
-      (playerSelection === "Scissors" && computerSelection === "Paper")
-      ) {
-      playerScore++;
-      roundOutcome = 
-        `${playerSelection} beats ${computerSelection}. 
-        You win this round!
-        Player: ${playerScore}
-        Computer: ${computerScore}`;
-      console.log("win");
-      roundResult();
-    } else {
-      computerScore++;
-      roundOutcome = 
-        `${computerSelection} beats ${playerSelection}. 
-        You lose this round!
-        Player: ${playerScore}
-        Computer: ${computerScore}`;
-      console.log("lose");
-      roundResult();
-    }      
-  }
+    console.log("win");
+    roundResult();
+  } else {
+    computerScore++;
+    roundOutcome = 
+      `${computerSelection} beats ${playerSelection}. 
+      You lose this round!
+      Player: ${playerScore}
+      Computer: ${computerScore}`;
+    console.log("lose");
+    roundResult();
+  } 
 }
 
 function roundResult() {
   const roundResultMessage = document.querySelector("#round-result");
   roundResultMessage.textContent = roundOutcome;
   if (playerScore < 5 && computerScore < 5) {
-    game();
+    gameStart();
   } else {
     document.querySelector("#play").style.display = "none";
     endResult();
